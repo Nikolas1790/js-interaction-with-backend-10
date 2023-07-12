@@ -15,22 +15,40 @@ const refs = {
 const BASE_URL = 'https://api.thecatapi.com/v1/'
 const ENDPOINT = 'breeds'
 const API_KEY = 'live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu'
+loaderDell()
+function loaderDell() {
+    refs.loader.setAttribute('hidden', true);
+    }
+function loaderAdd() {
+    refs.loader.removeAttribute('hidden')
+}
+
+function breedSelectDell() {
+     refs.select.setAttribute('hidden', true);
+}
+function breedSelectAdd() {
+    refs.select.removeAttribute('hidden')
+}
+
 
 function fetchBreeds() {
-     
+   
      fetch(`${BASE_URL}${ENDPOINT}?api_key=${API_KEY}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText)
             }
+             
         return response.json();
         })
          .then((data) => {
              console.log(data);
             const catInfo = data
                 .map(({ id, name }) => `<option value='${id}'>${name}</option>`)
-                .join('');
-                refs.select.insertAdjacentHTML('beforeend', catInfo);
+                 .join('');
+             
+             refs.select.insertAdjacentHTML('beforeend', catInfo);
+             
         }
         )
         .catch(err => {
@@ -39,7 +57,8 @@ function fetchBreeds() {
      
 };
 
- function fetchCatByBreed(breedId) { 
+function fetchCatByBreed(breedId) { 
+    loaderDell();
      return fetch(`${BASE_URL}images/search?api_key=${API_KEY}&breed_ids=${breedId}`)
          .then(response => {
     if (!response.ok) {
@@ -55,7 +74,7 @@ function fetchBreeds() {
 refs.select.addEventListener('change', onSelect)
 
 function onSelect(event) {
-    
+    loaderAdd()
     fetchCatByBreed(event.target.value).then((data) => {
        
         refs.catInfo.innerHTML = `
