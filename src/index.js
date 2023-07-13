@@ -1,7 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
-
+import 'slim-select/dist/slimselect.cjs'
 // new SlimSelect({
 //     select: '#selectElement'
 // });
@@ -48,13 +48,13 @@ function breedSelectAdd() {
     refs.select.removeAttribute('hidden')
 }
 
-
  fetchBreeds().then((data) => {
              console.log(data);
             const catInfo = data
                 .map(({ id, name }) => `<option value='${id}'>${name}</option>`)
                  .join('');             
-             refs.select.insertAdjacentHTML('beforeend', catInfo);             
+     refs.select.insertAdjacentHTML('beforeend', catInfo);     
+     
         }
         )
      .catch(err => {
