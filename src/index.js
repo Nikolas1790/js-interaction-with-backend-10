@@ -2,9 +2,9 @@ import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
 
-new SlimSelect({
-    select: '#selectElement'
-});
+// new SlimSelect({
+//     select: '#selectElement'
+// });
 
 import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
