@@ -1,4 +1,10 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
+import SlimSelect from 'slim-select'
+import Notiflix from 'notiflix';
+
+new SlimSelect({
+  select: '#selectElement'
+})
 
 import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
@@ -52,7 +58,10 @@ function breedSelectAdd() {
         }
         )
      .catch(err => {
-           
+         
+         breedSelectDell()
+
+          Notiflix.Notify.failure( refs.error.removeAttribute('hidden'))
         console.log(err);
         })
 
@@ -65,17 +74,21 @@ function onSelect(event) {
     fetchCatByBreed(event.target.value).then((data) => {
             loaderDell()
             breedSelectAdd()
-            catInfoAdd()
+        catInfoAdd()
+        
         refs.catInfo.innerHTML = `
-        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset="" width='300'/>
-        <div class="">
-       <h2>${data[0].breeds[0].name}</h2>
-      <p>${data[0].breeds[0].description}</p>
-       <p>Temperament:${data[0].breeds[0].temperament}</p>
+        <div class="cat-card">
+        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset="" width='300'  class="img-cat"/>
+        <div class="cat-description">
+       <h2 class="cat-title">${data[0].breeds[0].name} </h2>
+      <p>${data[0].breeds[0].description} class="cat-text"</p>
+       <p><span class="cat-span-temperament">Temperament:</span>  ${data[0].breeds[0].temperament} class="cat-temperament"</p>
+       </div>
        </div>
         `
     }).catch(err => {
-       
+        breedSelectDell()
+      Notiflix.Notify.failure( refs.error.removeAttribute('hidden'))
         console.log(err);
         })
 }
