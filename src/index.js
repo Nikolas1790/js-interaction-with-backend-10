@@ -3,15 +3,15 @@ import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
 
 new SlimSelect({
-  select: '#selectElement'
-})
+    select: '#selectElement'
+});
 
 import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
 
 let api = axios.create({
-  baseURL: 'https://api.thecatapi.com/v1/breeds'
-})
+    baseURL: 'https://api.thecatapi.com/v1/breeds'
+});
 
 const refs = {
     select: document.querySelector('.breed-select'),
