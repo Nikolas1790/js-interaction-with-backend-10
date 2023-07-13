@@ -1,10 +1,96 @@
-// import axios from "axios";
-// axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
+import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 
-// let api = axios.create({
-//   baseURL: 'https://api.thecatapi.com/v1/breeds'
-// })
-import { fetchBreeds, fetchCatByBreed, refs} from "./cat-api";
+import axios from "axios";
+axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
+
+let api = axios.create({
+  baseURL: 'https://api.thecatapi.com/v1/breeds'
+})
+
+const refs = {
+    select: document.querySelector('.breed-select'),
+    catInfo: document.querySelector('.cat-info'),
+    loader: document.querySelector('.loader'),
+    error: document.querySelector('.error'),
+};
+
+refs.select.addEventListener('change', onSelect)
+
+// const BASE_URL = 'https://api.thecatapi.com/v1/'
+// const ENDPOINT = 'breeds'
+// const API_KEY = 'live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu'
+function catInfoDell() {
+     refs.catInfo.setAttribute('hidden', true);
+}
+function catInfoAdd() {
+    refs.catInfo.removeAttribute('hidden')
+}
+
+
+loaderDell()
+function loaderDell() {
+    refs.loader.setAttribute('hidden', true);
+    }
+function loaderAdd() {
+    refs.loader.removeAttribute('hidden')
+}
+
+function breedSelectDell() {
+     refs.select.setAttribute('hidden', true);
+}
+function breedSelectAdd() {
+    refs.select.removeAttribute('hidden')
+}
+
+
+ fetchBreeds().then((data) => {
+             console.log(data);
+            const catInfo = data
+                .map(({ id, name }) => `<option value='${id}'>${name}</option>`)
+                 .join('');             
+             refs.select.insertAdjacentHTML('beforeend', catInfo);             
+        }
+        )
+     .catch(err => {
+           
+        console.log(err);
+        })
+
+
+function onSelect(event) {
+
+             loaderAdd()
+             breedSelectDell()
+             catInfoDell()
+    fetchCatByBreed(event.target.value).then((data) => {
+            loaderDell()
+            breedSelectAdd()
+            catInfoAdd()
+        refs.catInfo.innerHTML = `
+        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset="" width='300'/>
+        <div class="">
+       <h2>${data[0].breeds[0].name}</h2>
+      <p>${data[0].breeds[0].description}</p>
+       <p>Temperament:${data[0].breeds[0].temperament}</p>
+       </div>
+        `
+    }).catch(err => {
+       
+        console.log(err);
+        })
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // const refs = {
 //     select: document.querySelector('.breed-select')
@@ -14,9 +100,6 @@ import { fetchBreeds, fetchCatByBreed, refs} from "./cat-api";
 // const ENDPOINT = 'breeds'
 // const API_KEY = 'live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu'
 // let storedBreeds = []
-
-fetchBreeds();
-fetchCatByBreed();
 // function fetchBreeds() {
 //     return fetch(`${BASE_URL}${ENDPOINT}?api_key=${API_KEY}`).then(resp => {
 //         if (!resp.ok) {
