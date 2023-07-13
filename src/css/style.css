@@ -4,8 +4,9 @@
   margin: 1%;
 }
 
-/* .img-cat {
-} */
+.img-cat {
+  width: 300px;
+}
 .cat-description {
   padding: 10px;
   max-width: 600px;

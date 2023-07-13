@@ -51,7 +51,7 @@ function breedSelectAdd() {
  fetchBreeds().then((data) => {
              console.log(data);
             const catInfo = data
-                .map(({ id, name }) => `<option value='${id}'>${name}</option>`)
+                .map(({ id, name }) => `<option value='' disabled hidden selected>Select cat</option><option value='${id}'>${name}</option>`)
                  .join('');             
      refs.select.insertAdjacentHTML('beforeend', catInfo);     
      
@@ -78,7 +78,7 @@ function onSelect(event) {
         
         refs.catInfo.innerHTML = `
         <div class="cat-card">
-        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset="" width='300'  class="img-cat"/>
+        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset=""  class="img-cat"/>
         <div class="cat-description">
        <h2 class="cat-title">${data[0].breeds[0].name} </h2>
       <p>${data[0].breeds[0].description} class="cat-text"</p>
