@@ -48,8 +48,8 @@ function onSelect(event) {
         <img src="${data[0].url}" alt="${name}" srcset=""  class="img-cat"/>
         <div class="cat-description">
        <h2 class="cat-title">${name} </h2>
-      <p>${description} class="cat-text"</p>
-       <p><span class="cat-span-temperament">Temperament:</span>  ${temperament} class="cat-temperament"</p>
+      <p class="cat-text">${description} </p>
+       <p class="cat-temperament"><span class="cat-span-temperament">Temperament:</span>  ${temperament} </p>
        </div>
        </div>
         `
