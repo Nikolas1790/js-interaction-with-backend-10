@@ -19,8 +19,6 @@ const refs = {
 
 refs.select.addEventListener('change', onSelect)
 
-// addHiddenAtribute(refs.loader)
-
 fetchBreeds().then((data) => {
     removeHiddenAtribute(refs.select)
     addHiddenAtribute(refs.loader)
@@ -31,7 +29,8 @@ fetchBreeds().then((data) => {
      refs.select.insertAdjacentHTML('beforeend', catInfo);   
      }
         )
-     .catch(err => {
+    .catch(err => {
+         addHiddenAtribute(refs.loader)
          addHiddenAtribute(refs.select)     
         Notiflix.Notify.failure(removeHiddenAtribute(refs.error))
          console.log(err);
@@ -67,7 +66,6 @@ function onSelect(event) {
         Notiflix.Notify.failure(removeHiddenAtribute(refs.error))            
         console.log(err);
         
-        console.log('hhhhhhhhhhhh')
     }).finally(() => {
         addHiddenAtribute(refs.loader)        
         removeHiddenAtribute(refs.select)        
