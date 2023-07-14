@@ -72,9 +72,7 @@ loaderAdd()
              breedSelectDell()
              catInfoDell()
     fetchCatByBreed(event.target.value).then((data) => {
-            loaderDell()
-            breedSelectAdd()
-        catInfoAdd()
+            
         let { name, temperament, description } = data[0].breeds[0];
         
         refs.catInfo.innerHTML = `
@@ -91,6 +89,10 @@ loaderAdd()
         breedSelectDell()
       Notiflix.Notify.failure( refs.error.removeAttribute('hidden'))
         console.log(err);
+    }).finally(() => {
+            loaderDell()
+            breedSelectAdd()
+        catInfoAdd()
         })
 }
 
