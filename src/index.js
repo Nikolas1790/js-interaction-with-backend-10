@@ -1,8 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
-
 import Notiflix from 'notiflix';
-
-
 import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
 
@@ -16,7 +13,6 @@ const refs = {
     loader: document.querySelector('.loader'),
     error: document.querySelector('.error'),
 };
-
 refs.select.addEventListener('change', onSelect)
 
 fetchBreeds().then((data) => {
@@ -34,14 +30,11 @@ fetchBreeds().then((data) => {
          addHiddenAtribute(refs.select)     
         Notiflix.Notify.failure(removeHiddenAtribute(refs.error))
          console.log(err);
-         addHiddenAtribute(refs.catInfo)
-         
+         addHiddenAtribute(refs.catInfo)         
         })
 
-
 function onSelect(event) {
-    addHiddenAtribute(refs.error)
-    
+            addHiddenAtribute(refs.error)    
             removeHiddenAtribute(refs.loader)   
             addHiddenAtribute( refs.select) 
             addHiddenAtribute(refs.catInfo)
@@ -69,11 +62,9 @@ function onSelect(event) {
     }).finally(() => {
         addHiddenAtribute(refs.loader)        
         removeHiddenAtribute(refs.select)        
-        removeHiddenAtribute(refs.catInfo)
-   
+        removeHiddenAtribute(refs.catInfo)   
         })
 }
-
 
 function removeHiddenAtribute(el) {
     el.hidden = false

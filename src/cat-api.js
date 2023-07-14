@@ -61,6 +61,7 @@ export function fetchBreeds() {
             return response.json();
         })
 }
+
 export function fetchCatByBreed(breedId)
 {
     return fetch(`${BASE_URL}/images/search?breed_ids=${breedId}&api_key=${API_KEY}`)
