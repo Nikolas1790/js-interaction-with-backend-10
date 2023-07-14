@@ -1,7 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
-import SlimSelect from 'slim-select'
+// import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
-import 'slim-select/dist/slimselect.cjs'
+// import 'slim-select/dist/slimselect.cjs'
 // new SlimSelect({
 //     select: '#selectElement'
 // });
@@ -49,9 +49,10 @@ function breedSelectAdd() {
 }
 
  fetchBreeds().then((data) => {
-             console.log(data);
+            //  console.log(data);
             const catInfo = data
-                .map(({ id, name }) => `<option value='' disabled hidden selected>Select cat</option><option value='${id}'>${name}</option>`)
+                .map(({ id, name }) => `<option value='' disabled hidden selected>Select cat</option>
+                <option value='${id}'>${name}</option>`)
                  .join('');             
      refs.select.insertAdjacentHTML('beforeend', catInfo);     
      
@@ -68,21 +69,21 @@ function breedSelectAdd() {
 
 function onSelect(event) {
 
-             loaderAdd()
              breedSelectDell()
              catInfoDell()
     fetchCatByBreed(event.target.value).then((data) => {
             loaderDell()
             breedSelectAdd()
         catInfoAdd()
+        let { name, temperament, description } = data[0].breeds[0];
         
         refs.catInfo.innerHTML = `
         <div class="cat-card">
-        <img src="${data[0].url}" alt="${data[0].breeds[0].name}" srcset=""  class="img-cat"/>
+        <img src="${data[0].url}" alt="${name}" srcset=""  class="img-cat"/>
         <div class="cat-description">
-       <h2 class="cat-title">${data[0].breeds[0].name} </h2>
-      <p>${data[0].breeds[0].description} class="cat-text"</p>
-       <p><span class="cat-span-temperament">Temperament:</span>  ${data[0].breeds[0].temperament} class="cat-temperament"</p>
+       <h2 class="cat-title">${name} </h2>
+      <p>${description} class="cat-text"</p>
+       <p><span class="cat-span-temperament">Temperament:</span>  ${temperament} class="cat-temperament"</p>
        </div>
        </div>
         `
