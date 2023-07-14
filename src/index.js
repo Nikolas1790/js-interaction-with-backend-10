@@ -1,10 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
-// import SlimSelect from 'slim-select'
+
 import Notiflix from 'notiflix';
-// import 'slim-select/dist/slimselect.cjs'
-// new SlimSelect({
-//     select: '#selectElement'
-// });
+
 
 import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_hj3bZ5YYrlS7jC7F7EuKKOPYrFuUayTJnyrIAMNiPu2sdFPugKifPlNkZu0uskLu";
@@ -22,10 +19,11 @@ const refs = {
 
 refs.select.addEventListener('change', onSelect)
 
-addHiddenAtribute(refs.loader)
+// addHiddenAtribute(refs.loader)
 
- fetchBreeds().then((data) => {
-           
+fetchBreeds().then((data) => {
+    removeHiddenAtribute(refs.select)
+    addHiddenAtribute(refs.loader)
             const catInfo = data
                 .map(({ id, name }) => `<option value='' disabled hidden selected>Select cat</option>
                 <option value='${id}'>${name}</option>`)
@@ -36,17 +34,21 @@ addHiddenAtribute(refs.loader)
      .catch(err => {
          addHiddenAtribute(refs.select)     
         Notiflix.Notify.failure(removeHiddenAtribute(refs.error))
-        console.log(err);
+         console.log(err);
+         addHiddenAtribute(refs.catInfo)
+         
         })
 
 
 function onSelect(event) {
+    addHiddenAtribute(refs.error)
+    
             removeHiddenAtribute(refs.loader)   
             addHiddenAtribute( refs.select) 
             addHiddenAtribute(refs.catInfo)
-            
+    
     fetchCatByBreed(event.target.value).then((data) => {
-            
+       
         let { name, temperament, description } = data[0].breeds[0];
         
         refs.catInfo.innerHTML = `
@@ -60,13 +62,17 @@ function onSelect(event) {
        </div>
         `
     }).catch(err => {
-addHiddenAtribute( refs.select)         
+        addHiddenAtribute(refs.catInfo)
+       refs.catInfo.textContent = ''
         Notiflix.Notify.failure(removeHiddenAtribute(refs.error))            
         console.log(err);
+        
+        console.log('hhhhhhhhhhhh')
     }).finally(() => {
         addHiddenAtribute(refs.loader)        
         removeHiddenAtribute(refs.select)        
         removeHiddenAtribute(refs.catInfo)
+   
         })
 }
 
