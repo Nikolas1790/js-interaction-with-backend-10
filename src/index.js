@@ -49,7 +49,7 @@ function breedSelectAdd() {
 }
 
  fetchBreeds().then((data) => {
-            //  console.log(data);
+           
             const catInfo = data
                 .map(({ id, name }) => `<option value='' disabled hidden selected>Select cat</option>
                 <option value='${id}'>${name}</option>`)
@@ -68,7 +68,7 @@ function breedSelectAdd() {
 
 
 function onSelect(event) {
-
+loaderAdd()
              breedSelectDell()
              catInfoDell()
     fetchCatByBreed(event.target.value).then((data) => {
