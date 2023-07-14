@@ -76,10 +76,10 @@ function onSelect(event) {
 
 
 function removeHiddenAtribute(el) {
-    el.removeAttribute('hidden')
+    el.hidden = false
 }
 
 function addHiddenAtribute(el) {
-    el.setAttribute('hidden', true);
+    el.hidden = true;
 }
 
